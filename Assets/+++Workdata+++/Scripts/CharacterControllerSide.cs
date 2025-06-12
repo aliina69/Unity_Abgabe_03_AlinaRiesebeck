@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class CharacterControllerSide : MonoBehaviour
 {
@@ -7,28 +8,30 @@ public class CharacterControllerSide : MonoBehaviour
     [SerializeField] private float speed = 6f;
     [SerializeField] private float jumpforce = 8;
     private float direction = 0f;
+    // 
 
     private Rigidbody2D rb;
 
     [Header("GroundCheck")]
-    //hier speichern wir das Transform des GrounCheck objects zwischen (muss natürlich vorher im inspektor zugewiesen werden)
-    //damit wir die Position später im script verwenden können
-    [SerializeField]
-    private Transform transformGroundCheck;
+    [SerializeField] private Transform transformGroundCheck;
+    //zugewiesenes Groundchecker object wird zwischen gespeichert, um dann die position später im script anwenden zu können 
 
     //in einer Layermask können wir ebenen aus unserem project zuweisen für die spätere verwendung im script
     [SerializeField] private LayerMask layerGround;
-
-    /*[Header("Manager")] 
-    [SerializeField] private CoinManager coinManager;
-    [SerializeField] private UIManager uiManager;*/
-
+    
+    
+    [Header("Manager")] 
+    [SerializeField] private CollectableManager collectableManager;
+    [SerializeField] private UIManager uiManager;
+    //
+    
     private bool canMove = true;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
+    //
 
     void Update()
     {
@@ -54,6 +57,7 @@ public class CharacterControllerSide : MonoBehaviour
             rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
         }
     }
+    //movement for the character 
 
 
     void Jump()
@@ -63,8 +67,9 @@ public class CharacterControllerSide : MonoBehaviour
             rb.linearVelocity = new Vector2(0, jumpforce);
         }
     }
+    //
 
-    /*
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collided with something!!");
@@ -73,7 +78,7 @@ public class CharacterControllerSide : MonoBehaviour
         {
             Debug.Log("Collided with coin");
             Destroy(other.gameObject);
-            coinManager.AddCoin();
+            collectableManager.AddCoin();
         }
         else if (other.CompareTag("obstacle"))
         {
@@ -82,5 +87,6 @@ public class CharacterControllerSide : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             canMove = false;
         }
-    }*/
+    }
+    //
 }
