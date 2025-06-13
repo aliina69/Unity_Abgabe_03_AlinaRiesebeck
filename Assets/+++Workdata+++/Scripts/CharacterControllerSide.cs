@@ -69,7 +69,7 @@ public class CharacterControllerSide : MonoBehaviour
     }
     //
 
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collided with something!!");
@@ -87,6 +87,12 @@ public class CharacterControllerSide : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             canMove = false;
         }
-    }
-    //
+        if (other.CompareTag("win"))
+        {
+            Debug.Log("Collided with win");
+            Destroy(other.gameObject);
+            uiManager.ShowPanelWin();
+        }
+    }   
+           //
 }

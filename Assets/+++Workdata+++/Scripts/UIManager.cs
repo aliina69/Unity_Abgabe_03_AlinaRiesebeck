@@ -29,10 +29,8 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-    
-    
-     
-    
+   
+
     public void UpdateCoinText(int newCoinCount)
     {
         txtCounterCoin.text = newCoinCount.ToString();
@@ -42,4 +40,9 @@ public class UIManager : MonoBehaviour
     {
         panelLose.SetActive(true);
     }
+    public void ShowPanelWin()
+    {
+        panelWin.SetActive(true);
+    }
+
 }
