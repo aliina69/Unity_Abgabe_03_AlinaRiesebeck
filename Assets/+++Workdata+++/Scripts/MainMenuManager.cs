@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class MainMenuManager : MonoBehaviour
         buttonPlay.onClick.AddListener(StartGame);
         buttonEnd.onClick.AddListener(EndGame);
     }
+    
     void StartGame()
     {
         SceneManager.LoadScene("GameScene");

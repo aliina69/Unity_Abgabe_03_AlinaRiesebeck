@@ -1,10 +1,10 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class CharacterControllerSide : MonoBehaviour
 {
-
     [SerializeField] private float speed = 6f;
     [SerializeField] private float jumpforce = 8;
     private float direction = 0f;
@@ -23,16 +23,41 @@ public class CharacterControllerSide : MonoBehaviour
     [Header("Manager")] 
     [SerializeField] private CollectableManager collectableManager;
     [SerializeField] private UIManager uiManager;
-    //
+    [SerializeField] private Player_Score playerScore;
+
+    [SerializeField] private TextMeshProUGUI countDown;
+    
     
     private bool canMove = true;
 
     void Start()
     {
+        StartCoroutine(Countdown(3));
         rb = GetComponent<Rigidbody2D>();
     }
     //
+    IEnumerator Countdown(int seconds)
+    {
+        canMove = false;
+        int count = seconds;
+        while (count > 0)
+        {
+            countDown.text = count.ToString();
+            yield return new WaitForSeconds(1);
+            count--;
+        }
 
+        StartGame();
+    }
+   
+
+    void StartGame()
+    {
+        canMove = true;
+        StopCoroutine(Countdown(3));
+        Destroy(countDown.gameObject);
+    }
+    
     void Update()
     {
         if (canMove)
@@ -80,6 +105,12 @@ public class CharacterControllerSide : MonoBehaviour
             Destroy(other.gameObject);
             collectableManager.AddCoin();
         }
+        if (other.CompareTag("diamond"))
+        {
+            Debug.Log("Collided with diamond");
+            Destroy(other.gameObject);
+            collectableManager.AddDiamond();
+        }
         else if (other.CompareTag("obstacle"))
         {
             Debug.Log("Collided with obstacle");
@@ -92,7 +123,10 @@ public class CharacterControllerSide : MonoBehaviour
             Debug.Log("Collided with win");
             Destroy(other.gameObject);
             uiManager.ShowPanelWin();
+            canMove = false;
+            uiManager.ShowPanelWin();
+            //playerScore.CountScore();
         }
     }   
-           //
+    
 }

@@ -8,6 +8,7 @@ TagManager:
   - coin
   - obstacle
   - win
+  - diamond
   layers:
   - Default
   - TransparentFX

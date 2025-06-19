@@ -6,19 +6,25 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("----PANELS----")]
     [SerializeField] private TMP_Text txtCounterCoin;
     [SerializeField] private GameObject panelLose;
     [SerializeField] private GameObject panelWin;
+    
+    [Header("----BUTTONS----")]
     [SerializeField] Button buttonRestart;
-    [SerializeField] Button buttonMainMenu;
+    [SerializeField] Button buttonMainMenuReset;
+    [SerializeField] Button buttonMainMenuWin;
 
     private void Start()
     {
         panelLose.SetActive(false);
         panelWin.SetActive(false);
         buttonRestart.onClick.AddListener(ReloadLevel);
-        buttonMainMenu.onClick.AddListener(GoToMainMenu);
+        buttonMainMenuReset.onClick.AddListener(GoToMainMenu);
+        buttonMainMenuWin.onClick.AddListener(GoToMainMenu);
     }
+
 
     void ReloadLevel()
     {

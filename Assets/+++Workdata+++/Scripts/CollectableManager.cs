@@ -16,5 +16,9 @@ public class CollectableManager : MonoBehaviour
         counterCoins++;
         uIManager.UpdateCoinText(counterCoins);
     }
-
+    public void AddDiamond()
+    {
+        counterCoins += 15;
+        uIManager.UpdateCoinText(counterCoins);
+    }
 }
