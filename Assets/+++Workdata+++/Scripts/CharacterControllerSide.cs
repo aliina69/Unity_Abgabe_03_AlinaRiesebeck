@@ -139,15 +139,37 @@ public class CharacterControllerSide : MonoBehaviour
             canMove = false;
             timerRunning = false;
         }
-        if (other.CompareTag("win"))
+        else if (other.CompareTag("win"))
         {
             Debug.Log("Collided with win");
             Destroy(other.gameObject);
-            uiManager.ShowPanelWin();
-            //int finalScore = collectableManager.CalculateFinalScore(targetTime);
-            //uiManager.ShowPanelWin(finalScore);
+            //uiManager.ShowPanelWin();
             canMove = false;
             timerRunning = false;
+            rb.linearVelocity = Vector2.zero;
+
+            StartCoroutine(AnimateFinalScore());
+
+            IEnumerator AnimateFinalScore()
+            {
+                uiManager.ShowPanelWin(); // Open the Win Panel
+
+                int coins = collectableManager.CurrentCoins;
+                int timeLeft = Mathf.RoundToInt(targetTime);
+                int totalScore = coins;
+
+                finalScore.text = "Score: " + totalScore;
+
+                while (timeLeft > 0)
+                {
+                    timeLeft--;
+                    totalScore += 5; //  Each second of remaining time adds 10 points
+                    finalScore.text = "Score: " + totalScore;
+                    yield return new WaitForSeconds(0.05f); // controls speed of the count 
+                }
+
+                finalScore.text = "Final Score: " + totalScore;
+            }
         }
     }   
     

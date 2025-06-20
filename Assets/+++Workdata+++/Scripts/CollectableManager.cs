@@ -5,6 +5,7 @@ public class CollectableManager : MonoBehaviour
     [SerializeField] private int counterCoins = 0;
     [SerializeField] private UIManager uIManager;
 
+    public int CurrentCoins => counterCoins;
     private void Start()
     {
         counterCoins = 0;
@@ -21,9 +22,5 @@ public class CollectableManager : MonoBehaviour
         counterCoins += 15;
         uIManager.UpdateCoinText(counterCoins);
     }
-    // public int CalculateFinalScore(float remainingTime)
-    // {
-    //     int timeBonus = Mathf.CeilToInt(remainingTime) * 10; 
-    //     return counterCoins + timeBonus;
-    // }
+
 }
