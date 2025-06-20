@@ -591,6 +591,8 @@ MonoBehaviour:
   txtCounterCoin: {fileID: 1570199490}
   panelLose: {fileID: 1707376008}
   panelWin: {fileID: 645170358}
+  collectableManager: {fileID: 0}
+  finalScoreText: {fileID: 0}
   buttonRestart: {fileID: 1645987004}
   buttonMainMenuReset: {fileID: 1194164314}
   buttonMainMenuWin: {fileID: 1644987831}
@@ -1007,7 +1009,6 @@ GameObject:
   - component: {fileID: 724165905}
   - component: {fileID: 724165904}
   - component: {fileID: 724165903}
-  - component: {fileID: 724165908}
   - component: {fileID: 724165907}
   m_Layer: 0
   m_Name: Character
@@ -1174,28 +1175,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   jumpforce: 8
+  targetTime: 60
+  timertext: {fileID: 2088539105}
   transformGroundCheck: {fileID: 124388463}
   layerGround:
     serializedVersion: 2
     m_Bits: 8
   collectableManager: {fileID: 1296830748}
   uiManager: {fileID: 526709117}
-  playerScore: {fileID: 0}
+  finalScore: {fileID: 1484562478}
   countDown: {fileID: 924598588}
---- !u!114 &724165908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 724165902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 750eac53f2885004b8006b9fd0021f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeLeft: 120
-  playerScore: 0
 --- !u!1 &860797367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,7 +2637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: time
+  m_text: 00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

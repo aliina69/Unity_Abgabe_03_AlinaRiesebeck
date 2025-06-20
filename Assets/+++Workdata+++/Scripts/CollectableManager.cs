@@ -21,4 +21,9 @@ public class CollectableManager : MonoBehaviour
         counterCoins += 15;
         uIManager.UpdateCoinText(counterCoins);
     }
+    // public int CalculateFinalScore(float remainingTime)
+    // {
+    //     int timeBonus = Mathf.CeilToInt(remainingTime) * 10; 
+    //     return counterCoins + timeBonus;
+    // }
 }

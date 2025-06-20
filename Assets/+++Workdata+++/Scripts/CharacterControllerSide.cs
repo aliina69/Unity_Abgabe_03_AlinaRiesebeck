@@ -8,6 +8,8 @@ public class CharacterControllerSide : MonoBehaviour
     [SerializeField] private float speed = 6f;
     [SerializeField] private float jumpforce = 8;
     private float direction = 0f;
+    [SerializeField] float targetTime = 60.0f;
+    [SerializeField] private TextMeshProUGUI timertext;
     // 
 
     private Rigidbody2D rb;
@@ -23,12 +25,13 @@ public class CharacterControllerSide : MonoBehaviour
     [Header("Manager")] 
     [SerializeField] private CollectableManager collectableManager;
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private Player_Score playerScore;
-
+    
+    [SerializeField] private TextMeshProUGUI finalScore;
     [SerializeField] private TextMeshProUGUI countDown;
     
     
     private bool canMove = true;
+    private bool timerRunning = false;
 
     void Start()
     {
@@ -54,10 +57,11 @@ public class CharacterControllerSide : MonoBehaviour
     void StartGame()
     {
         canMove = true;
+        timerRunning = true;
         StopCoroutine(Countdown(3));
         Destroy(countDown.gameObject);
     }
-    
+
     void Update()
     {
         if (canMove)
@@ -81,10 +85,26 @@ public class CharacterControllerSide : MonoBehaviour
 
             rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
         }
+
+        if (timerRunning)
+        {
+            targetTime -= Time.deltaTime;
+            timertext.text = targetTime.ToString("0");
+
+            if (targetTime < 0.1f)
+            {
+                timerEnd();
+            }
+        }
     }
-    //movement for the character 
 
 
+    public void timerEnd()
+    {
+        timerRunning = false;
+        uiManager.ShowPanelLose();
+        Destroy(timertext.gameObject);
+    }
     void Jump()
     {
         if (Physics2D.OverlapCircle(transformGroundCheck.position, radius: 0.1f, layerGround))
@@ -117,15 +137,17 @@ public class CharacterControllerSide : MonoBehaviour
             uiManager.ShowPanelLose();
             rb.linearVelocity = Vector2.zero;
             canMove = false;
+            timerRunning = false;
         }
         if (other.CompareTag("win"))
         {
             Debug.Log("Collided with win");
             Destroy(other.gameObject);
             uiManager.ShowPanelWin();
+            //int finalScore = collectableManager.CalculateFinalScore(targetTime);
+            //uiManager.ShowPanelWin(finalScore);
             canMove = false;
-            uiManager.ShowPanelWin();
-            //playerScore.CountScore();
+            timerRunning = false;
         }
     }   
     

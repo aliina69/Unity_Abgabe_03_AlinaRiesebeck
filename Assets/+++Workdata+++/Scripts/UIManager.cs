@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text txtCounterCoin;
     [SerializeField] private GameObject panelLose;
     [SerializeField] private GameObject panelWin;
+    [SerializeField] private CollectableManager collectableManager;
+
+    [SerializeField] private TextMeshProUGUI finalScoreText;
     
     [Header("----BUTTONS----")]
     [SerializeField] Button buttonRestart;
@@ -46,8 +49,9 @@ public class UIManager : MonoBehaviour
     {
         panelLose.SetActive(true);
     }
-    public void ShowPanelWin()
+    public void ShowPanelWin()//(int finalScore)
     {
+       // finalScoreText.text = "Score: " + finalScore.ToString("0");
         panelWin.SetActive(true);
     }
 
